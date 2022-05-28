@@ -21,10 +21,19 @@ async function run() {
   try {
     await client.connect();
     const toolsCollection = client.db("car_tools").collection("tools");
+    const ordersCollection = client.db("car_tools").collection("orders");
+    /* const userCollection = client.db("car_tools").collection("users"); */
     app.get("/tools", async (req, res) => {
       const query = {};
       const cursor = toolsCollection.find(query);
       const tools = await cursor.toArray();
+      res.send(tools);
+    });
+
+    app.get("/orders", async (req, res) => {
+      const tool = req.query.patient;
+      const query = { patient: tool };
+      const tools = await ordersCollection.find(query).toArray();
       res.send(tools);
     });
   } finally {
