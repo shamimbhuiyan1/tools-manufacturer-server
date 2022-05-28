@@ -31,8 +31,8 @@ async function run() {
     });
 
     app.get("/orders", async (req, res) => {
-      const tool = req.query.patient;
-      const query = { patient: tool };
+      const tool = req.query.tool;
+      const query = { tool: tool };
       const tools = await ordersCollection.find(query).toArray();
       res.send(tools);
     });
