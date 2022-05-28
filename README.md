@@ -4,6 +4,7 @@ This project is [Car Tools Management](https://car-tools-management.web.app/).
 
 ## Tecnologices Used
 
+- client side : HTML5, CSS3, React.js, React Router etc.
 - Server side : Node js, Express Js
 - Database : MongoDB
 - Deployment : Firebase , Heroku
