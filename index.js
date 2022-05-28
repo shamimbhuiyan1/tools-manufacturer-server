@@ -22,7 +22,7 @@ async function run() {
     await client.connect();
     const toolsCollection = client.db("car_tools").collection("tools");
     const ordersCollection = client.db("car_tools").collection("orders");
-    /* const userCollection = client.db("car_tools").collection("users"); */
+    const userCollection = client.db("car_tools").collection("users");
     app.get("/tools", async (req, res) => {
       const query = {};
       const cursor = toolsCollection.find(query);
@@ -35,6 +35,40 @@ async function run() {
       const query = { patient: tool };
       const tools = await ordersCollection.find(query).toArray();
       res.send(tools);
+    });
+    app.put("/user/admin/:email", verifyJWT, async (req, res) => {
+      const email = req.params.email;
+      const requester = req.decoded.email;
+      const requesterAccount = await userCollection.findOne({
+        email: requester,
+      });
+      if (requesterAccount.role === "admin") {
+        const filter = { email: email };
+        const updateDoc = {
+          $set: { role: "admin" },
+        };
+        const result = await userCollection.updateOne(filter, updateDoc);
+        res.send(result);
+      } else {
+        res.status(403).send({ message: "forbidden" });
+      }
+    });
+
+    app.put("/user/:email", async (req, res) => {
+      const email = req.params.email;
+      const user = req.body;
+      const filter = { email: email };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: user,
+      };
+      const result = await userCollection.updateOne(filter, updateDoc, options);
+      const token = jwt.sign(
+        { email: email },
+        process.env.ACCESS_TOKEN_SECRET,
+        { expiresIn: "1h" }
+      );
+      res.send({ result, token });
     });
   } finally {
   }
