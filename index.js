@@ -76,6 +76,18 @@ async function run() {
       );
       res.send({ result, token });
     });
+
+    app.get("/orders", verifyJWT, async (req, res) => {
+      const tool = req.query.patient;
+      const decodedEmail = req.decoded.email;
+      if (tool === decodedEmail) {
+        const query = { patient: tool };
+        const orders = await ordersCollection.find(query).toArray();
+        return res.send(orders);
+      } else {
+        return res.status(403).send({ message: "forbidden access" });
+      }
+    });
   } finally {
   }
 }
