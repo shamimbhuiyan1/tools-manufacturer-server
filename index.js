@@ -20,10 +20,10 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    const toolsCollection = client.db("car_tools").collection("tools");
+    const toolsCollection = client.db("car_tools").collection("products");
     const ordersCollection = client.db("car_tools").collection("orders");
     const userCollection = client.db("car_tools").collection("users");
-    app.get("/tools", async (req, res) => {
+    app.get("/products", async (req, res) => {
       const query = {};
       const cursor = toolsCollection.find(query);
       const tools = await cursor.toArray();
@@ -77,6 +77,12 @@ async function run() {
       res.send({ result, token });
     });
 
+    app.delete("/product/:email", verifyJWT, verifyAdmin, async (req, res) => {
+      const email = req.params.email;
+      const filter = { email: email };
+      const result = await doctorCollection.deleteOne(filter);
+      res.send(result);
+    });
     app.get("/orders", verifyJWT, async (req, res) => {
       const tool = req.query.patient;
       const decodedEmail = req.decoded.email;
