@@ -1,6 +1,6 @@
-# Getting Started with Car Tools Management App
+# Getting Started with Tools Manufacturer App
 
-This project is [Car Tools Management](https://car-tools-management.web.app/).
+This project is [ Tools Manufacturer](https://car-tools-management.web.app/).
 
 ## Tecnologices Used
 
@@ -13,7 +13,7 @@ This project is [Car Tools Management](https://car-tools-management.web.app/).
 
 - Awesome Design
 - User friendly functionality
-- All important car tools are there.
+- All important tools are there.
 - We have home delivery service
 - We have 6 month replacement guarantee.
 
@@ -21,10 +21,3 @@ This project is [Car Tools Management](https://car-tools-management.web.app/).
 
 Runs the app in the development mode.\
 Open [https://car-tools-management.web.app/](https://car-tools-management.web.app/) to view it in your browser.
-
-### SERVER HEROKU
-
-[https://tranquil-mountain-12597.herokuapp.com/]
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
